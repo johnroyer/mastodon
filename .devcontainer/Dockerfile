@@ -6,6 +6,11 @@ WORKDIR /app
 COPY .nvmrc .
 RUN /bin/bash --login -i -c "nvm install"
 
+# install Yarn
+# ref: https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /etc/apt/keyrings/yarn-archive-keyring.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
 # Install additional OS packages
 RUN apt-get update && \
     export DEBIAN_FRONTEND=noninteractive && \
